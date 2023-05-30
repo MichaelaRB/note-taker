@@ -19,20 +19,20 @@ app.get('/api/notes', (req, res) => {
     return res.status(200).json(noteData);
 })
 
-app.get('/api/notes/:note_id', (req, res) => {
-    if (req.params.note_id) {
+app.get('/api/notes/:id', (req, res) => {
+    if (req.params.id) {
         console.info(`${req.method} request received to get a single note`);
-        const noteId = req.params.note_id;
+        const noteId = req.params.id;
         for (let i = 0; i < noteData.length; i++) {
           const currentNote = noteData[i];
-          if (currentNote.note_id === noteId) {
+          if (currentNote.id === noteId) {
             res.status(200).json(currentNote);
             return;
           }
         }
-        res.status(404).send('Review not found');
+        res.status(404).send('Note not found');
       } else {
-        res.status(400).send('Review ID not provided');
+        res.status(400).send('Note ID not provided');
       }
 });
 
@@ -45,7 +45,7 @@ app.post('/api/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uniqid(),
+      id: uniqid(),
     };
 
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
