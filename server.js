@@ -14,6 +14,13 @@ app.get('/notes', (req, res) => {
     console.info(`${req.method} request received to get the notes.html file.`);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+
+    console.info(`${req.method} request received to get the index.html file.`);
+});
+
+
 app.get('/api/notes', (req, res) => {
     res.json(noteData);
     console.info(`${req.method} request received to get a note.`);
