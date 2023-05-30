@@ -1,11 +1,18 @@
 const express = require('express');
-const noteData = require('./db/notes.json');
+const path = require('path');
+const noteData = require('./db/db.json');
 
 const PORT = 3001;
 
 const app = express();
 
 app.use(express.static('public'));
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+
+    console.info(`${req.method} request received to get the notes.html file.`);
+});
 
 app.get('/api/notes', (req, res) => {
     res.json(noteData);
