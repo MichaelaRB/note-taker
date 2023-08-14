@@ -4,7 +4,7 @@ const fs = require('fs');
 const noteData = require('./db/db');
 const uniqid = require('uniqid');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -85,7 +85,6 @@ app.get('/notes', (req, res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
